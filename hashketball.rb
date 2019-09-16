@@ -169,13 +169,17 @@ def shoe_size_2(player_name)
   find_player_hash(player_name)[:shoe]
 end 
 
-def player_stats(player_name)
-  game_hash.keys.each do |team|
-    if game_hash[team][:players].keys.include?(player_name)
-      return game_hash[team][:players]
-    end 
-  end 
-end 
+def player_stats(name)
+    home = game_hash[:home][:players]
+    away = game_hash[:away][:players]
+    team_players = home + away
+    team_players.each do |player|
+        if player[:player_name] == name
+            player.delete(:player_name)
+            return player
+        end
+    end
+end
 
 def most_points_scored
   most_points = 0
